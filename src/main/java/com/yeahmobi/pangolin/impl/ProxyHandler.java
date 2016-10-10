@@ -16,13 +16,19 @@ public class ProxyHandler extends SimpleChannelInboundHandler<HttpRequest> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, HttpRequest httpRequest) throws Exception {
-        System.out.println(httpRequest.getMethod().name());
+        boolean keepAlive = HttpUtil.isKeepAlive(httpRequest);
         FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK,
                 Unpooled.wrappedBuffer("It works".getBytes()));
         response.headers().set(CONTENT_TYPE, "text/plain");
         response.headers().set(CONTENT_LENGTH, response.content().readableBytes());
 
-        ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
+        if (keepAlive) {
+            ctx.writeAndFlush(response);
+        } else {
+            response.headers().set(CONNECTION, KEEP_ALIVE);
+            ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
+        }
+
     }
 
     @Override

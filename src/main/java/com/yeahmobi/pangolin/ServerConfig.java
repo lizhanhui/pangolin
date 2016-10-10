@@ -1,8 +1,5 @@
 package com.yeahmobi.pangolin;
 
-/**
- * Created by lizhanhui on 16-10-10.
- */
 public class ServerConfig {
 
     private int port = 8080;
