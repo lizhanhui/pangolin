@@ -1,5 +1,6 @@
 package com.yeahmobi.pangolin;
 
+import com.yeahmobi.pangolin.proxy.SocksServer;
 import org.apache.commons.cli.*;
 
 public class Main {
@@ -16,7 +17,7 @@ public class Main {
         ServerConfig config = new ServerConfig();
         config.setPort(Integer.parseInt(commandLine.getOptionValue('p')));
 
-        Server server = new Server(config);
+        Server server = new SocksServer(config);
         server.start();
     }
 }
