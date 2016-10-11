@@ -1,1 +1,1 @@
-web: java -jar target/pangolin.jar
+web: java -jar target/pangolin.jar -p $PORT
