@@ -1,1 +1,1 @@
-proxy: java -jar target/pangolin.jar -p $PORT
+worker: java -jar target/pangolin.jar -p $PORT
