@@ -3,6 +3,7 @@ package com.yeahmobi.pangolin;
 import com.yeahmobi.pangolin.impl.ProxyHandler;
 import com.yeahmobi.pangolin.impl.ThreadFactoryImpl;
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
@@ -30,6 +31,7 @@ public class TestServer implements Server {
                     .channel(NioServerSocketChannel.class)
                     .option(ChannelOption.SO_BACKLOG, 1024)
                     .option(ChannelOption.TCP_NODELAY, true)
+                    .childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
                     .childOption(ChannelOption.TCP_NODELAY, true)
                     .childOption(ChannelOption.CONNECT_TIMEOUT_MILLIS, config.getConnectTimeout())
                     .childOption(ChannelOption.SO_SNDBUF, config.getSendBufferSize())
